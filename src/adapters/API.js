@@ -4,7 +4,7 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 export default class API {
-  static getToken = () => { 
+  static getToken = () => {
     let data = new URLSearchParams();
     data.append("client_id", CLIENT_ID);
     data.append("client_secret", CLIENT_SECRET);
@@ -16,8 +16,9 @@ export default class API {
     }).then(resp => resp.json());
   };
 
-  static search = token => {
-    return fetch(BASE_URL + "search?q=chill&type=playlist", {
+  static search = (search, token) => {
+    let query = BASE_URL + `search?q=${search}&type=track`;
+    return fetch(query, {
       headers: { Authorization: "Bearer " + token }
     }).then(resp => resp.json());
   };
