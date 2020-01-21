@@ -2,39 +2,35 @@ import React, { Component } from "react";
 import "./App.scss";
 import API from "./adapters/API";
 import Results from "./components/Results";
+import Search from "./components/Search";
 
 export default class App extends Component {
   state = {
-    results: ""
+    results: "",
+    search: ""
   };
   componentDidMount() {
-    API.getToken()
-      .then(response => API.search("Bullets", response.access_token))
-      .then(response => {
-        console.log(response);
-        this.setState({
-          results: this.extractReleventData(response.tracks.items)
+    if (this.state.search)
+      API.getToken()
+        .then(response => API.search(this.state.search, response.access_token))
+        .then(response => {
+          console.log(response);
+          this.setState({
+            results: this.extractReleventData(response.tracks.items)
+          });
         });
-      });
   }
 
-  extractReleventData = response => {
-    let results = [];
-    response.map(item => {
-      let result = Object.assign(
-        {},
-        { name: item.name },
-        { artist: item.artists[0].name },
-        { album: item.album.name },
-        { popularity: item.popularity }
-      );
-      return results.push(result);
+  setResults = results => {
+    this.setState({
+      results
     });
-    return results;
   };
+
   render() {
     return (
       <div className="App">
+        <Search setResults={this.setResults} />
         <Results results={this.state.results} />
       </div>
     );
