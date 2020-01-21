@@ -28,7 +28,7 @@ export default class App extends Component {
         { album: item.album.name },
         { popularity: item.popularity }
       );
-      results.push(result);
+      return results.push(result);
     });
     return results;
   };
