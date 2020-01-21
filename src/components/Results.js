@@ -4,22 +4,22 @@ import ResultsRow from "./ResultsRow";
 function Results(props) {
   let rows = () => {
     if (props.results) {
-      return props.results.map(result => {
-        return <ResultsRow info={result} />;
+      return props.results.map((result, index) => {
+        return <ResultsRow key={index} info={result} />;
       });
     }
   };
   return (
-    <div>
-      <table>
-        <tr>
+    <table className="table">
+      <thead>
+        <tr className="t-header">
           <th>Song</th>
           <th>Artist</th>
           <th>Album</th>
         </tr>
-        {rows()}
-      </table>
-    </div>
+      </thead>
+      <tbody>{rows()}</tbody>
+    </table>
   );
 }
 export default Results;
