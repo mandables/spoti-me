@@ -6,20 +6,8 @@ import Search from "./components/Search";
 
 export default class App extends Component {
   state = {
-    results: "",
-    search: ""
+    results: ""
   };
-  componentDidMount() {
-    if (this.state.search)
-      API.getToken()
-        .then(response => API.search(this.state.search, response.access_token))
-        .then(response => {
-          console.log(response);
-          this.setState({
-            results: this.extractReleventData(response.tracks.items)
-          });
-        });
-  }
 
   setResults = results => {
     this.setState({
@@ -31,7 +19,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Search setResults={this.setResults} />
-        <Results results={this.state.results} />
+        {this.state.results ? <Results results={this.state.results} /> : null}
       </div>
     );
   }
