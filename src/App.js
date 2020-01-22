@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import "./App.scss";
-import API from "./adapters/API";
-import Results from "./components/Results";
-import Search from "./components/Search";
 import { Router } from "@reach/router";
 import Playlists from "./pages/Playlists";
+import Callback from "./components/Callback";
+import Login from "./pages/Login";
 
 export default class App extends Component {
   render() {
     return (
       <>
         <Router>
+          <Login path="/login" />
+          <Callback path="/callback" />
           <Playlists path="/playlists" />
         </Router>
       </>
