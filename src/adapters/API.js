@@ -8,10 +8,10 @@ const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 export default class API {
 	static search = (search, token) => {
-		debugger;
 		let query = BASE_URL + `search?q=${search}&type=track`;
-		this.fetchInfo(query, token);
+		return this.fetchInfo(query, token);
 	};
+
 	static getToken = () => {
 		let data = new URLSearchParams();
 		data.append('client_id', CLIENT_ID);
@@ -38,8 +38,20 @@ export default class API {
 		}).then((resp) => resp.json());
 	};
 
+	static refreshToken = () => {
+		let data = new URLSearchParams();
+		data.append('refresh_token', localStorage.getItem('r_token'));
+		data.append('client_id', CLIENT_ID);
+		data.append('client_secret', CLIENT_SECRET);
+		data.append('grant_type', 'refresh_token');
+		return fetch(TOKEN_URL, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: data
+		}).then((resp) => resp.json());
+	};
+
 	static fetchInfo = (url, token) => {
-		debugger;
 		return fetch(url, {
 			headers: { Authorization: 'Bearer ' + token }
 		}).then((resp) => resp.json());

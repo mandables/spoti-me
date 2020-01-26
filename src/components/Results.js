@@ -16,6 +16,7 @@ function Results(props) {
           <th>Song</th>
           <th>Artist</th>
           <th>Album</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>{rows()}</tbody>
