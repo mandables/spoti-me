@@ -7,7 +7,6 @@ function PlaylistTable(props) {
       return props.playlists.map((playlist, index) => {
         return (
           <PlaylistRow
-            
             selectPlaylist={props.selectPlaylist}
             key={index}
             info={playlist}
@@ -17,10 +16,10 @@ function PlaylistTable(props) {
     }
   };
   return (
-    <table className="playlist">
+    <table className="playlist-table">
       <thead>
         <tr className="t-header">
-          <th>Playlists</th>
+          <th>PLAYLISTS</th>
         </tr>
       </thead>
       <tbody>{rows()}</tbody>

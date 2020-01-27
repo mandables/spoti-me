@@ -16,7 +16,7 @@ function Results(props) {
     }
   };
   return (
-    <table className="table">
+    <table className="search-table">
       <thead>
         <tr className="t-header">
           <th>Song</th>

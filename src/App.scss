@@ -1,41 +1,12 @@
+$light-font: #eee8da;
+$purple-font: #34314c;
+
+$nav-height: 3em;
+
+nav {
+  height: $nav-height;
+}
 body,
 html {
-	height: 100%;
-}
-
-.table-container {
-	height: 100px;
-}
-
-.table {
-	border: solid 1px black;
-	border-collapse: collapse;
-	font-size: small;
-	overflow-y: auto;
-	height: 20em;
-	width: 50em;
-	display: block;
-	border-radius: 1%;
-	tr {
-		border: solid 1px black;
-    // padding: 10px;
-    // text-align: center;
-		height: 3em;
-	}
-}
-
-.playlist {
-	border-bottom: solid 1px black;
-	border-collapse: collapse;
-	font-size: small;
-	overflow-y: auto;
-	border-radius: 1%;
-	height: 20em;
-	width: 20em;
-	display: block;
-
-	tr {
-		border: solid 1px black;
-		height: 3em;
-	}
+  height: 100%;
 }

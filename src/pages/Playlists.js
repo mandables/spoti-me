@@ -3,6 +3,7 @@ import Search from "../components/Search";
 import Results from "../components/Results";
 import PlaylistTable from "../components/PlaylistTable";
 import API from "../adapters/API";
+import "../stylesheets/playlists.scss";
 
 export default class Playlists extends Component {
   state = {
@@ -53,19 +54,21 @@ export default class Playlists extends Component {
   };
   render() {
     return (
-      <>
+      <div className="playlists-container">
         <Search setResults={this.setResults} />
         {this.state.results ? (
           <Results
             addSongToPlaylists={this.addSongToPlaylists}
             results={this.state.results}
           />
-        ) : null}
+        ) : (
+          <div className="placeholder"></div>
+        )}
         <PlaylistTable
           selectPlaylist={this.addPlaylistToState}
           playlists={this.state.playlists}
         />
-      </>
+      </div>
     );
   }
 }
