@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Search from "../components/Search";
 import Results from "../components/Results";
-import PlaylistTable from '../components/PlaylistTable'
+import PlaylistTable from "../components/PlaylistTable";
 import API from "../adapters/API";
 
 export default class Playlists extends Component {
@@ -12,22 +12,39 @@ export default class Playlists extends Component {
   };
 
   componentDidMount() {
-    API.refreshToken()
-    .then(data => this.grabUserInfo(data.access_token))
+    API.refreshToken().then(data => this.grabUserInfo(data.access_token));
   }
 
-  addToSelectedPlaylists = id => {
-    this.state.selectedPlaylists.includes(id) ? 
-    this.setState({selectedPlaylists: this.state.selectedPlaylists.filter(playlist => playlist !== id)}) : 
-    this.setState({selectedPlaylists: [...this.state.selectedPlaylists, id]})
-  }
-  
-  grabUserInfo = (token) => {
-		let url = 'https://api.spotify.com/v1/me/playlists';
-		API.fetchInfo(url, token).then((playlists) => {
-			this.setState({playlists: playlists.items})
-		});
-	};
+  addSongToPlaylists = uri => {
+    if (this.state.selectedPlaylists.length !== 0) {
+      let promises = this.state.selectedPlaylists.map(playlist => {
+        debugger;
+        return API.addSong(playlist, uri);
+      });
+      Promise.all(promises).then(() => alert("Done"));
+    } else {
+      alert("No playlists selected");
+    }
+  };
+
+  addPlaylistToState = id => {
+    this.state.selectedPlaylists.includes(id)
+      ? this.setState({
+          selectedPlaylists: this.state.selectedPlaylists.filter(
+            playlist => playlist !== id
+          )
+        })
+      : this.setState({
+          selectedPlaylists: [...this.state.selectedPlaylists, id]
+        });
+  };
+
+  grabUserInfo = token => {
+    let url = "https://api.spotify.com/v1/me/playlists";
+    API.fetchInfo(url, token).then(playlists => {
+      this.setState({ playlists: playlists.items });
+    });
+  };
 
   setResults = results => {
     this.setState({
@@ -38,8 +55,16 @@ export default class Playlists extends Component {
     return (
       <>
         <Search setResults={this.setResults} />
-        {this.state.results ? <Results results={this.state.results} /> : null}
-        <PlaylistTable selectPlaylist={this.addToSelectedPlaylists} playlists={this.state.playlists}/>
+        {this.state.results ? (
+          <Results
+            addSongToPlaylists={this.addSongToPlaylists}
+            results={this.state.results}
+          />
+        ) : null}
+        <PlaylistTable
+          selectPlaylist={this.addPlaylistToState}
+          playlists={this.state.playlists}
+        />
       </>
     );
   }

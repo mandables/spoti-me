@@ -5,7 +5,13 @@ function Results(props) {
   let rows = () => {
     if (props.results) {
       return props.results.map((result, index) => {
-        return <ResultsRow key={index} info={result} />;
+        return (
+          <ResultsRow
+            addSongToPlaylists={props.addSongToPlaylists}
+            key={index}
+            info={result}
+          />
+        );
       });
     }
   };
