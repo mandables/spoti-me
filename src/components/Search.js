@@ -30,7 +30,7 @@ function Search(props) {
   };
 
   return (
-    <form onSubmit={searchAPI}>
+    <form onSubmit={searchAPI} className="search">
       <input name="search" placeholder="Song Title" />
       <input type="submit" value="Search" />
     </form>

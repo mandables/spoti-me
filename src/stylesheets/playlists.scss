@@ -1,7 +1,21 @@
 @import "../App.scss";
 
 .playlists-container {
-  height: calc($nav-height);
+  display: grid;
+  grid-template-columns: 400px 300px 300px;
+
+  grid-template-rows: 50px 500px;
+  grid-template-areas:
+    "search search search "
+    "search-table search-table playlist-table";
+
+  form {
+    grid-area: search;
+  }
+
+  .placeholder {
+    grid-area: search-table;
+  }
 }
 
 table {
@@ -31,6 +45,7 @@ table {
 .search-table {
   height: 20em;
   width: 50em;
+  grid-area: search-table;
 
   //   tr {
   //     border: solid 1px black;
@@ -43,7 +58,7 @@ table {
 .playlist-table {
   height: 20em;
   width: 14em;
-
+  grid-area: "playlist-table";
   tr {
   }
 

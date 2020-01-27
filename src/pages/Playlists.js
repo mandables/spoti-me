@@ -61,7 +61,9 @@ export default class Playlists extends Component {
             addSongToPlaylists={this.addSongToPlaylists}
             results={this.state.results}
           />
-        ) : null}
+        ) : (
+          <div className="placeholder"></div>
+        )}
         <PlaylistTable
           selectPlaylist={this.addPlaylistToState}
           playlists={this.state.playlists}
