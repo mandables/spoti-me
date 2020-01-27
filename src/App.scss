@@ -1,12 +1,12 @@
-
 $light-font: #eee8da;
 $purple-font: #34314c;
 
+$nav-height: 3em;
+
+nav {
+  height: $nav-height;
+}
 body,
 html {
-	height: 100%;
+  height: 100%;
 }
-
-
-
-

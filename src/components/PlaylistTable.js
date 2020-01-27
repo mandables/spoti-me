@@ -16,7 +16,7 @@ function PlaylistTable(props) {
     }
   };
   return (
-    <table className="playlist">
+    <table className="playlist-table">
       <thead>
         <tr className="t-header">
           <th>PLAYLISTS</th>

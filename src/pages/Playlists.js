@@ -54,7 +54,7 @@ export default class Playlists extends Component {
   };
   render() {
     return (
-      <>
+      <div className="playlists-container">
         <Search setResults={this.setResults} />
         {this.state.results ? (
           <Results
@@ -66,7 +66,7 @@ export default class Playlists extends Component {
           selectPlaylist={this.addPlaylistToState}
           playlists={this.state.playlists}
         />
-      </>
+      </div>
     );
   }
 }

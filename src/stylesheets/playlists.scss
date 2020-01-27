@@ -1,40 +1,50 @@
-.table-container {
-  height: 100px;
+@import "../App.scss";
+
+.playlists-container {
+  height: calc($nav-height);
 }
 
-.table {
+table {
   border: solid 1px black;
   border-collapse: collapse;
   font-size: small;
   overflow-y: auto;
-  height: 20em;
-  width: 50em;
-  display: block;
   border-radius: 1%;
-  tr {
-    border: solid 1px black;
-    // padding: 10px;
-    // text-align: center;
-    height: 3em;
-  }
-}
-
-.playlist {
-  border-bottom: solid 1px black;
-  border-collapse: collapse;
-  font-size: small;
-  overflow-y: auto;
-  border-radius: 1%;
-  height: 20em;
-  width: 14em;
   display: block;
   background-color: black;
   color: whitesmoke;
+  padding: 1%;
   font-weight: bold;
+
+  th {
+    color: rgb(30, 215, 97);
+    // padding: 0;
+  }
 
   tr {
     border-top: solid 1px rgba(230, 228, 228, 0.269);
     height: 3em;
+    // padding: 1%;
+  }
+}
+
+.search-table {
+  height: 20em;
+  width: 50em;
+
+  //   tr {
+  //     border: solid 1px black;
+  //     // padding: 10px;
+  //     // text-align: center;
+  //     height: 3em;
+  //   }
+}
+
+.playlist-table {
+  height: 20em;
+  width: 14em;
+
+  tr {
   }
 
   td {
