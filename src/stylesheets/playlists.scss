@@ -1,0 +1,45 @@
+.table-container {
+  height: 100px;
+}
+
+.table {
+  border: solid 1px black;
+  border-collapse: collapse;
+  font-size: small;
+  overflow-y: auto;
+  height: 20em;
+  width: 50em;
+  display: block;
+  border-radius: 1%;
+  tr {
+    border: solid 1px black;
+    // padding: 10px;
+    // text-align: center;
+    height: 3em;
+  }
+}
+
+.playlist {
+  border-bottom: solid 1px black;
+  border-collapse: collapse;
+  font-size: small;
+  overflow-y: auto;
+  border-radius: 1%;
+  height: 20em;
+  width: 14em;
+  display: block;
+  background-color: black;
+  color: whitesmoke;
+  font-weight: bold;
+
+  tr {
+    border-top: solid 1px rgba(230, 228, 228, 0.269);
+    height: 3em;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+}

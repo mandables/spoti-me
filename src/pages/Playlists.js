@@ -3,6 +3,7 @@ import Search from "../components/Search";
 import Results from "../components/Results";
 import PlaylistTable from "../components/PlaylistTable";
 import API from "../adapters/API";
+import "../stylesheets/playlists.scss";
 
 export default class Playlists extends Component {
   state = {
