@@ -1,25 +1,41 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import Results from "../components/Results";
 import PlaylistTable from "../components/PlaylistTable";
 import API from "../adapters/API";
 import "../stylesheets/playlists.scss";
 
-export default class Playlists extends Component {
-  state = {
-    results: "",
-    playlists: [],
-    selectedPlaylists: []
+// const greet = e => {}
+
+// document.body.addEventListener('click', greet)
+
+const Playlists = () => {
+  // state = {
+  //   results: "",
+  //   playlists: [],
+  //   selectedPlaylists: []
+  // };
+
+  const [results, setResults] = useState("");
+  const [playlists, setPlaylists] = useState([]);
+  const [selectedPlaylists, setSelectedPlaylists] = useState([]);
+
+  // const selectedPlaylists = useSelector(
+  //   state => state.selectedPlaylists
+  // );
+
+  const refreshTokenAndGetPlaylists = async () => {
+    await API.refreshToken();
+    grabUserInfo();
   };
-  
 
-  componentDidMount() {
-    API.refreshToken().then(data => this.grabUserInfo(data.access_token));
-  }
+  useEffect(() => {
+    refreshTokenAndGetPlaylists();
+  }, []);
 
-  addSongToPlaylists = uri => {
-    if (this.state.selectedPlaylists.length !== 0) {
-      let promises = this.state.selectedPlaylists.map(playlist => {
+  const addSongToPlaylists = uri => {
+    if (selectedPlaylists.length !== 0) {
+      let promises = selectedPlaylists.map(playlist => {
         debugger;
         return API.addSong(playlist, uri);
       });
@@ -29,47 +45,35 @@ export default class Playlists extends Component {
     }
   };
 
-  addPlaylistToState = id => {
-    this.state.selectedPlaylists.includes(id)
-      ? this.setState({
-          selectedPlaylists: this.state.selectedPlaylists.filter(
-            playlist => playlist !== id
-          )
-        })
-      : this.setState({
-          selectedPlaylists: [...this.state.selectedPlaylists, id]
-        });
+  const addPlaylistToState = id => {
+    selectedPlaylists.includes(id)
+      ? setSelectedPlaylists(
+          selectedPlaylists.filter(playlist => playlist !== id)
+        )
+      : setSelectedPlaylists([...selectedPlaylists, id]);
   };
 
-  grabUserInfo = token => {
+  const grabUserInfo = () => {
     let url = "https://api.spotify.com/v1/me/playlists";
-    API.fetchInfo(url, token).then(playlists => {
-      this.setState({ playlists: playlists.items });
+    API.fetchInfo(url).then(playlists => {
+      setPlaylists(playlists.items);
     });
   };
 
-  setResults = results => {
-    this.setState({
-      results
-    });
-  };
-  render() {
-    return (
-      <div className="playlists-container">
-        <Search setResults={this.setResults} />
-        {this.state.results ? (
-          <Results
-            addSongToPlaylists={this.addSongToPlaylists}
-            results={this.state.results}
-          />
-        ) : (
-          <div className="placeholder"></div>
-        )}
-        <PlaylistTable
-          selectPlaylist={this.addPlaylistToState}
-          playlists={this.state.playlists}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="playlists-container">
+      <Search setResults={setResults} />
+      {results ? (
+        <Results addSongToPlaylists={addSongToPlaylists} results={results} />
+      ) : (
+        <div className="placeholder"></div>
+      )}
+      <PlaylistTable
+        selectPlaylist={addPlaylistToState}
+        playlists={playlists}
+      />
+    </div>
+  );
+};
+
+export default Playlists;

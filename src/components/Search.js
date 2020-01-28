@@ -3,14 +3,16 @@ import API from "../adapters/API";
 import React from "react";
 
 function Search(props) {
-  const searchAPI = e => {
+  const searchAPI = async e => {
     e.preventDefault();
     e.persist();
-    API.refreshToken().then(resp =>
-      API.search(e.target.search.value, resp.access_token).then(resp =>
-        props.setResults(extractReleventData(resp.tracks.items))
-      )
-    );
+    await API.refreshToken();
+
+    const {
+      tracks: { items }
+    } = await API.search(e.target.search.value);
+
+    props.setResults(extractReleventData(items));
   };
 
   const extractReleventData = response => {

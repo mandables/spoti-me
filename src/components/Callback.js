@@ -6,7 +6,7 @@ function Callback(props) {
   let setToken = () => {
     let code = props.location.href.split("code=")[1];
     API.getUserToken(code).then(resp => {
-      localStorage.setItem("r_token", resp.refresh_token);
+      localStorage.refresh_token = resp.refresh_token;
     });
   };
 

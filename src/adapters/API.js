@@ -7,70 +7,66 @@ const PLAYLIST_URL = "https://api.spotify.com/v1/playlists/";
 // const AUTH_QUERY =
 // 	'https://accounts.spotify.com/authorize?client_id=d31f37a814f743b8934138cb93e7ae57&response_type=code&redirect_uri=http://localhost:3000&scope=user-read-private%20user-read-email';
 
-export default class API {
-  static search = (search, token) => {
-    let query = BASE_URL + `search?q=${search}&type=track`;
-    return this.fetchInfo(query, token);
-  };
+const request = (url, options = {}) =>
+  fetch(url, options).then(resp => resp.json());
 
-  static getToken = () => {
-    let data = new URLSearchParams();
-    data.append("client_id", CLIENT_ID);
-    data.append("client_secret", CLIENT_SECRET);
-    data.append("grant_type", "client_credentials");
-    return fetch(TOKEN_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: data
-    }).then(resp => resp.json());
-  };
+const get = (url, options) => request(url, options);
 
-  static getUserToken = url => {
-    let data = new URLSearchParams();
-    data.append("code", url);
-    data.append("redirect_uri", "http://localhost:3000/callback");
-    data.append("client_id", CLIENT_ID);
-    data.append("client_secret", CLIENT_SECRET);
-    data.append("grant_type", "authorization_code");
-    return fetch(TOKEN_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: data
-    }).then(resp => resp.json());
-  };
+const post = (url, body) =>
+  request(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body
+  });
 
-  static addSong = (playlistId, songUri) => {
-    let url = PLAYLIST_URL + playlistId + "/tracks";
+const authorizedPost = (url, data) =>
+  request(url, {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + localStorage.access_token,
+      Accept: "application/json"
+    },
+    body: JSON.stringify(data)
+  });
 
-    this.refreshToken().then(data => {
-      fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + data.access_token,
-          Accept: "application/json"
-        },
-        body: JSON.stringify({ uris: [songUri] })
-      }).then(console.log);
-      //   .then(alert("Song added"));
-    });
-  };
+const fetchInfo = url => {
+  return get(url, {
+    headers: { Authorization: "Bearer " + localStorage.access_token }
+  });
+};
 
-  static refreshToken = () => {
-    let data = new URLSearchParams();
-    data.append("refresh_token", localStorage.getItem("r_token"));
-    data.append("client_id", CLIENT_ID);
-    data.append("client_secret", CLIENT_SECRET);
-    data.append("grant_type", "refresh_token");
-    return fetch(TOKEN_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: data
-    }).then(resp => resp.json());
-  };
+const search = search => {
+  let query = BASE_URL + `search?q=${search}&type=track`;
+  return fetchInfo(query, localStorage.access_token);
+};
 
-  static fetchInfo = (url, token) => {
-    return fetch(url, {
-      headers: { Authorization: "Bearer " + token }
-    }).then(resp => resp.json());
-  };
-}
+const getUserToken = url => {
+  let data = new URLSearchParams();
+  data.append("code", url);
+  data.append("redirect_uri", "http://localhost:3000/callback");
+  data.append("client_id", CLIENT_ID);
+  data.append("client_secret", CLIENT_SECRET);
+  data.append("grant_type", "authorization_code");
+  return post(TOKEN_URL, data);
+};
+
+const refreshToken = async () => {
+  let data = new URLSearchParams();
+  data.append("refresh_token", localStorage.refresh_token);
+  data.append("client_id", CLIENT_ID);
+  data.append("client_secret", CLIENT_SECRET);
+  data.append("grant_type", "refresh_token");
+  const { access_token } = await post(TOKEN_URL, data);
+
+  localStorage.access_token = access_token;
+};
+
+const addSong = async (playlistId, songUri) => {
+  let url = PLAYLIST_URL + playlistId + "/tracks";
+
+  await refreshToken();
+
+  authorizedPost(url, { uris: [songUri] });
+};
+
+export default { search, getUserToken, addSong, refreshToken, fetchInfo };
