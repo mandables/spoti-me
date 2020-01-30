@@ -8,12 +8,12 @@ function ResultsRow(props) {
       <td>{artist}</td>
       <td>{album}</td>
       <td>
-        <button
+        <div className="add"
           onClick={() => props.addSongToPlaylists(uri)}
-          value="Add to Playlists"
+         
         >
-          Add to Playlists
-        </button>
+          Add
+        </div>
       </td>
     </tr>
   );

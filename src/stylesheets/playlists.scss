@@ -1,20 +1,12 @@
 @import "../App.scss";
 
 .playlists-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "search search search search"
-    "search-table search-table search-table playlist-table";
+  display: flex;
+  flex-direction: column;
+}
 
-  form {
-    grid-area: search;
-  }
-
-  .placeholder {
-    grid-area: search-table;
-  }
+.tables-container {
+  display: flex;
 }
 
 table {
@@ -26,7 +18,6 @@ table {
   display: block;
   background-color: black;
   color: whitesmoke;
-  padding: 1%;
   font-weight: bold;
 
   th {
@@ -39,27 +30,37 @@ table {
     height: 3em;
     // padding: 1%;
   }
+
+  .add {
+    text-align: center;
+    border-radius: 10px;
+    border: 1px white solid;
+    width: 4em;
+    height: 1.5em;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .search-table {
   height: 50em;
   width: 50em;
-  grid-area: search-table;
+  text-align: left;
+  border-spacing:10px;
 
-  //   tr {
-  //     border: solid 1px black;
-  //     // padding: 10px;
-  //     // text-align: center;
-  //     height: 3em;
-  //   }
+  .search-body {
+    padding: 10px;
+  }
 }
 
 .playlist-table {
-  height: 20em;
   width: 14em;
-  grid-area: "playlist-table";
-  tr {
-  }
+  position: fixed;
+  right: 0px;
+  height: 100vh;
+  overflow-y: auto;
+
 
   td {
     display: flex;
@@ -67,3 +68,5 @@ table {
     padding: 10px;
   }
 }
+
+//bi credit: Photo by Malte Wingen on Unsplash

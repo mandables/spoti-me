@@ -55,19 +55,23 @@ export default class Playlists extends Component {
   render() {
     return (
       <div className="playlists-container">
-        <Search setResults={this.setResults} />
-        {this.state.results ? (
-          <Results
-            addSongToPlaylists={this.addSongToPlaylists}
-            results={this.state.results}
+        <div className="search-container">
+          <Search setResults={this.setResults} />
+        </div>
+        <div className="tables-container">
+          {this.state.results ? (
+            <Results
+              addSongToPlaylists={this.addSongToPlaylists}
+              results={this.state.results}
+            />
+          ) : (
+            <div className="placeholder"></div>
+          )}
+          <PlaylistTable
+            selectPlaylist={this.addPlaylistToState}
+            playlists={this.state.playlists}
           />
-        ) : (
-          <div className="placeholder"></div>
-        )}
-        <PlaylistTable
-          selectPlaylist={this.addPlaylistToState}
-          playlists={this.state.playlists}
-        />
+        </div>
       </div>
     );
   }

@@ -22,7 +22,9 @@ function PlaylistTable(props) {
           <th>PLAYLISTS</th>
         </tr>
       </thead>
-      <tbody>{rows()}</tbody>
+
+        <tbody>{rows()}</tbody>
+ 
     </table>
   );
 }
