@@ -19,9 +19,9 @@ function Results(props) {
     <table className="search-table">
       <thead>
         <tr className="t-header">
-          <th>Song</th>
-          <th>Artist</th>
-          <th>Album</th>
+          <th>SONG</th>
+          <th>ARTIST</th>
+          <th>ALBUM</th>
           <th></th>
         </tr>
       </thead>

@@ -1,15 +1,13 @@
 import React from "react";
+import { truncate} from "../utils/helpers";
 
 function PlaylistRow(props) {
   const { name, id } = props.info;
 
-  const truncateName = name => {
-    return name.length > 20 ? name.slice(0, 20) + "..." : name;
-  };
   return (
     <tr>
       <td>
-        {truncateName(name)}
+        {truncate(name)}
         <input
           onClick={() => props.selectPlaylist(id)}
           value={id}
