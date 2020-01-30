@@ -1,12 +1,17 @@
 @import "../App.scss";
 
 .playlists-container {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-}
+  margin-left: 1em;
+  justify-content: space-around;
 
-.tables-container {
-  display: flex;
+  height: 44em;
+
+  .placeholder {
+    height: 50em;
+    width: 45em;
+  }
 }
 
 table {
@@ -36,7 +41,19 @@ table {
   td {
     padding: 1em;
   }
+}
 
+.search-table {
+  height: 50em;
+  width: 45em;
+  text-align: left;
+  border-spacing: 10px;
+  -webkit-box-shadow: 1px 5px 26px 12px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 5px 26px 12px rgba(0,0,0,0.75);
+  box-shadow: 1px 5px 26px 12px rgba(0,0,0,0.75);
+
+  // margin-left: 1em;
+  border: none;
   .add {
     text-align: center;
     border-radius: 10px;
@@ -49,24 +66,13 @@ table {
   }
 }
 
-.search-table {
-  height: 50em;
-  width: 45em;
-  text-align: left;
-  border-spacing: 10px;
-  margin-left: 1em;
-  border: none;
-
-  tbody {
-  }
-}
-
 .playlist-table {
   width: 14em;
   position: fixed;
   right: 0px;
   height: 100vh;
   overflow-y: auto;
+  display: inline;
 
   td {
     display: flex;

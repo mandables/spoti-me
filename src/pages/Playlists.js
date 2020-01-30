@@ -54,11 +54,11 @@ export default class Playlists extends Component {
   };
   render() {
     return (
-      <div className="playlists-container">
-        <div className="search-container">
-          <Search setResults={this.setResults} />
-        </div>
-        <div className="tables-container">
+      <>
+        <div className="playlists-container">
+          <div className="search-container">
+            <Search setResults={this.setResults} />
+          </div>
           {this.state.results ? (
             <Results
               addSongToPlaylists={this.addSongToPlaylists}
@@ -67,12 +67,12 @@ export default class Playlists extends Component {
           ) : (
             <div className="placeholder"></div>
           )}
-          <PlaylistTable
-            selectPlaylist={this.addPlaylistToState}
-            playlists={this.state.playlists}
-          />
         </div>
-      </div>
+        <PlaylistTable
+          selectPlaylist={this.addPlaylistToState}
+          playlists={this.state.playlists}
+        />
+      </>
     );
   }
 }
