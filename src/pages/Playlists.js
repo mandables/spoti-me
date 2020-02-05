@@ -20,7 +20,6 @@ export default class Playlists extends Component {
   addSongToPlaylists = uri => {
     if (this.state.selectedPlaylists.length !== 0) {
       let promises = this.state.selectedPlaylists.map(playlist => {
-        debugger;
         return API.addSong(playlist, uri);
       });
       Promise.all(promises).then(() => alert("Done"));
@@ -55,21 +54,25 @@ export default class Playlists extends Component {
   };
   render() {
     return (
-      <div className="playlists-container">
-        <Search setResults={this.setResults} />
-        {this.state.results ? (
-          <Results
-            addSongToPlaylists={this.addSongToPlaylists}
-            results={this.state.results}
-          />
-        ) : (
-          <div className="placeholder"></div>
-        )}
+      <>
+        <div className="playlists-container">
+          <div className="search-container">
+            <Search setResults={this.setResults} />
+          </div>
+          {this.state.results ? (
+            <Results
+              addSongToPlaylists={this.addSongToPlaylists}
+              results={this.state.results}
+            />
+          ) : (
+            <div className="placeholder"></div>
+          )}
+        </div>
         <PlaylistTable
           selectPlaylist={this.addPlaylistToState}
           playlists={this.state.playlists}
         />
-      </div>
+      </>
     );
   }
 }

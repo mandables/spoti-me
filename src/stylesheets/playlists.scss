@@ -1,69 +1,111 @@
 @import "../App.scss";
 
 .playlists-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "search search search search"
-    "search-table search-table search-table playlist-table";
+  display: inline-flex;
+  flex-direction: column;
+  margin-left: 1em;
+  justify-content: space-around;
 
-  form {
-    grid-area: search;
-  }
+  height: 93vh;
 
   .placeholder {
-    grid-area: search-table;
+    height: 50em;
+    width: 45em;
   }
 }
 
 table {
   border: solid 1px black;
   border-collapse: collapse;
-  font-size: small;
+  font-size: 1.3vw;
   overflow-y: auto;
   border-radius: 1%;
   display: block;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.75);
   color: whitesmoke;
-  padding: 1%;
   font-weight: bold;
+  font-family: "Circular Medium";
 
   th {
     color: rgb(30, 215, 97);
-    // padding: 0;
+    padding: 1em;
+    font-weight: lighter;
   }
 
   tr {
-    border-top: solid 1px rgba(230, 228, 228, 0.269);
-    height: 3em;
-    // padding: 1%;
+    border-bottom: solid 1px rgba(230, 228, 228, 0.269);
+    // padding: 1em;
+    height: 5vh;
+  }
+
+  td {
+    padding: 1em;
   }
 }
 
 .search-table {
-  height: 50em;
-  width: 50em;
-  grid-area: search-table;
+  height: 85vh;
+  width: 50vw;
+  text-align: left;
+  font-size: 1.3vw;
+  // border-spacing: 10px;
+  -webkit-box-shadow: 1px 5px 26px 12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 5px 26px 12px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 5px 26px 12px rgba(0, 0, 0, 0.75);
 
-  //   tr {
-  //     border: solid 1px black;
-  //     // padding: 10px;
-  //     // text-align: center;
-  //     height: 3em;
-  //   }
+  // margin-left: 1em;
+  border: none;
+  .add {
+    text-align: center;
+    border-radius: 10px;
+    border: 1px white solid;
+    width: 4em;
+    height: 1.5em;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .add:hover {
+    color: rgb(30, 215, 97);
+    // background: white
+  }
 }
 
 .playlist-table {
-  height: 20em;
-  width: 14em;
-  grid-area: "playlist-table";
-  tr {
-  }
+  // width: 19vw;
+  position: fixed;
+  right: 0px;
+  height: 93vh;
+  overflow-y: auto;
+  display: inline;
 
   td {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
+    height: 1.5vw;
+  }
+
+  #selector {
+    font-size: 2vw;
+    color: grey;
+    cursor: pointer;
   }
 }
+
+#search-icon {
+  position: relative;
+  right: 22px;
+  top: 3.5px;
+  height: 20px;
+}
+
+#search-bar {
+  border-radius: 10px;
+  height: 17px;
+}
+
+//bi credit: Photo by Malte Wingen on Unsplash

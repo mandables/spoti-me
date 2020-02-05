@@ -1,19 +1,20 @@
 import React from "react";
+import { truncate } from "../utils/helpers";
 
 function ResultsRow(props) {
   const { name, artist, album, uri } = props.info;
   return (
     <tr>
-      <td>{name}</td>
-      <td>{artist}</td>
-      <td>{album}</td>
+      <td>{truncate(name)}</td>
+      <td>{truncate(artist)}</td>
+      <td>{truncate(album)}</td>
       <td>
-        <button
+        <div className="add"
           onClick={() => props.addSongToPlaylists(uri)}
-          value="Add to Playlists"
+         
         >
-          Add to Playlists
-        </button>
+          Add
+        </div>
       </td>
     </tr>
   );
