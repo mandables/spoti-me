@@ -19,7 +19,6 @@ export default class Playlists extends Component {
   addSongToPlaylists = uri => {
     if (this.state.selectedPlaylists.length !== 0) {
       let promises = this.state.selectedPlaylists.map(playlist => {
-        debugger;
         return API.addSong(playlist, uri);
       });
       Promise.all(promises).then(() => alert("Done"));

@@ -7,13 +7,17 @@ const searchIcon = <FontAwesomeIcon icon={faSearch} id="search-icon" />;
 
 function Search(props) {
   const searchAPI = e => {
-    e.preventDefault();
-    e.persist();
-    API.refreshToken().then(resp =>
-      API.search(e.target.search.value, resp.access_token).then(resp =>
-        props.setResults(extractRelevantData(resp.tracks.items))
-      )
-    );
+    // debugger;
+    if (e.keyCode === 13 && e.target.value !== "") {
+      e.preventDefault();
+      e.persist();
+      API.refreshToken().then(resp =>
+        API.search(e.target.value, resp.access_token).then(resp => {
+          props.setResults(extractRelevantData(resp.tracks.items));
+          e.target.value = "";
+        })
+      );
+    }
   };
 
   const extractRelevantData = response => {
@@ -33,8 +37,9 @@ function Search(props) {
   };
 
   return (
-    <div className="input-wrapper">
+    <div>
       <input
+        onKeyDown={searchAPI}
         id="search-bar"
         name="search"
         placeholder="Search"
