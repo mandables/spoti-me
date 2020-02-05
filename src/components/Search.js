@@ -3,9 +3,10 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-const searchIcon = <FontAwesomeIcon icon={faSearch} id="search-icon" />;
 
 function Search(props) {
+
+
   const searchAPI = e => {
     // debugger;
     if (e.keyCode === 13 && e.target.value !== "") {
@@ -19,6 +20,11 @@ function Search(props) {
       );
     }
   };
+
+
+const searchIcon = (
+  <FontAwesomeIcon onClick={searchAPI} icon={faSearch} id="search-icon" />
+);
 
   const extractRelevantData = response => {
     let results = [];
