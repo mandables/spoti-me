@@ -11,6 +11,7 @@ export default class Playlists extends Component {
     playlists: [],
     selectedPlaylists: []
   };
+  
 
   componentDidMount() {
     API.refreshToken().then(data => this.grabUserInfo(data.access_token));
